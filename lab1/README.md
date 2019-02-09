@@ -1,5 +1,3 @@
-# CMPE202
+# CMPE202 Lab 1
 
-Class content for CMPE202
-
-base: https://github.com/paulnguyen/cmpe202
+base: https://github.com/paulnguyen/cmpe202/tree/master/labs/lab1
