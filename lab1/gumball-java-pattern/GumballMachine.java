@@ -3,22 +3,27 @@
 public class GumballMachine {
  
 	State soldOutState;
-	State noQuarterState;
-	State hasQuarterState;
+	State noMoneyState;
+	State notEnoughMoneyState;
+	State hasEnoughMoneyState;
 	State soldState;
  
 	State state = soldOutState;
 	int count = 0;
+	int value_counter = 0;
+	final int cost;
  
-	public GumballMachine(int numberGumballs) {
+	public GumballMachine(int numberGumballs, int gumballCost) {
 		soldOutState = new SoldOutState(this);
-		noQuarterState = new NoQuarterState(this);
-		hasQuarterState = new HasQuarterState(this);
+		noMoneyState = new NoMoneyState(this);
+		notEnoughMoneyState = new NotEnoughMoneyState(this);
+		hasEnoughMoneyState = new HasEnoughMoneyState(this);
 		soldState = new SoldState(this);
 
 		this.count = numberGumballs;
+		this.cost = gumballCost;
  		if (numberGumballs > 0) {
-			state = noQuarterState;
+			state = noMoneyState;
 		} 
 	}
  
@@ -28,6 +33,22 @@ public class GumballMachine {
  
 	public void ejectQuarter() {
 		state.ejectQuarter();
+	}
+
+	public void insertNickel() {
+		state.insertNickel();
+	}
+ 
+	public void ejectNickel() {
+		state.ejectNickel();
+	}
+
+	public void insertDime() {
+		state.insertDime();
+	}
+ 
+	public void ejectDime() {
+		state.ejectDime();
 	}
  
 	public void turnCrank() {
@@ -49,26 +70,46 @@ public class GumballMachine {
 	int getCount() {
 		return count;
 	}
+
+	int getValueCounter() {
+		return value_counter;
+	}
+
+	void addValue(int value) {
+		this.value_counter += value;
+	}
+
+	void subtractValue(int value) {
+		this.value_counter -= value;
+	}
+
+	int getCost() {
+		return cost;
+	}
  
 	void refill(int count) {
 		this.count = count;
-		state = noQuarterState;
+		state = noMoneyState;
 	}
 
     public State getState() {
         return state;
-    }
+	}
+	
+	public State getNoMoneyState() {
+		return noMoneyState;
+	}
 
     public State getSoldOutState() {
         return soldOutState;
     }
 
-    public State getNoQuarterState() {
-        return noQuarterState;
+    public State getNotEnoughMoneyState() {
+        return notEnoughMoneyState;
     }
 
-    public State getHasQuarterState() {
-        return hasQuarterState;
+    public State getHasEnoughMoneyState() {
+        return hasEnoughMoneyState;
     }
 
     public State getSoldState() {
